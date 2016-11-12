@@ -89,7 +89,6 @@
 				calculator.set('basic',this.value.toInt());
 			});
 			$root.on('change',"#txtHra",  function(){
-				console.log(this.value);
 				calculator.set('hra',this.value.toInt());
 			});
 			$root.on('change',"#txtDa",  function(){
@@ -123,12 +122,20 @@
 			});
 
 			this.render = function(){
-				console.log(this.template);
+				
 				$root.html(this.template);
 				return this;
 			}
 		}
 		
+		$(function(){
+			window.calculator = new SalaryCalculator();
+			var view1 = new SalaryCalculatorView(calculator);
+			view1.render().$root.appendTo(document.body);
+
+			var view2 = new SalaryCalculatorView(calculator);
+			view2.render().$root.appendTo(document.body);
+		})
 
 	</script>
 </head>
