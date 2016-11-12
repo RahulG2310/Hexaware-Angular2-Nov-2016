@@ -38,21 +38,24 @@
 			this.set = function(attrName, value){
 				_data[attrName] = value;
 				//trigger change notification for 'attrName'
-				var eventHandlerFn = _eventHandlers[attrName];
-				if (typeof eventHandlerFn === 'function')
-					eventHandlerFn();
+				var eventHandlerFns = _eventHandlers[attrName];
+				eventHandlerFns.forEach(function(eventHandlerFn){
+					if (typeof eventHandlerFn === 'function')
+						eventHandlerFn();
+				})
+				
 			};
 
 			var _eventHandlers = {
-				basic : null,
-				hra : null,
-				da : null,
-				tax : null,
-				salary : null
+				basic : [],
+				hra : [],
+				da : [],
+				tax : [],
+				salary : []
 			};
 
 			this.subscribe = function(attrName, eventHandlerFn){
-				_eventHandlers[attrName] = eventHandlerFn;
+				_eventHandlers[attrName].push( eventHandlerFn );
 			}
 		}
 		SalaryCalculator.prototype.calculate = function(){
@@ -62,65 +65,75 @@
 			
 		}
 
-		//View
-		$(function (){
-			window.calculator = new SalaryCalculator();
+		function SalaryCalculatorView(calculator){
+			var $root = this.$root = $("<div></div>");
 
-			$("#txtBasic").change(function(){
-				calculator.set('basic', $("#txtBasic").val().toInt());
+			this.template = `<div class="content">
+				<hr>
+				<div class="field"><label for="">Basic :</label><input type="text" name="" id="txtBasic"></div>
+				<div class="field"><label for="">HRA :</label><input type="text" name="" id="txtHra"></div>
+				<div class="field"><label for="">DA :</label><input type="text" name="" id="txtDa"></div>
+				<div class="field">
+					<label for="">Tax :</label>
+					<input type="range" name="" id="rangeTax" min="0" max="30" value="0">
+					<span id="spanTax">[Tax]</span>
+				</div>
+				<div class="field"><input type="button" value="Calculate" id="btnCalulate"></div>
+				<div class="field">
+					<div id="divResult">[Salary]</div>
+				</div>
+			</div>`;
+
+			//React to user actions
+			$root.on('change',"#txtBasic",  function(){
+				calculator.set('basic',this.value.toInt());
 			});
-			$("#txtHra").change(function(){
-				calculator.set('hra', $("#txtHra").val().toInt());
+			$root.on('change',"#txtHra",  function(){
+				console.log(this.value);
+				calculator.set('hra',this.value.toInt());
 			});
-			$("#txtDa").change(function(){
-				calculator.set('da', $("#txtDa").val().toInt());
+			$root.on('change',"#txtDa",  function(){
+
+				calculator.set('da',this.value.toInt());
 			});
-			$("#rangeTax").change(function(){
-				calculator.set('tax', $("#rangeTax").val().toInt());
+			$root.on('change',"#rangeTax",  function(){
+				calculator.set('tax',this.value.toInt());
 			});
 			
-			$("#btnCalulate").click(function(){
+			$root.on('click', "#btnCalulate", function(){
 				calculator.calculate();
-
-				
 			});
 			
-
+			//React to Model changes
 			calculator.subscribe('salary', function(){
-				$("#divResult").html('Rs.' + calculator.get('salary'));
+				$("#divResult", $root).html('Rs.' + calculator.get('salary'));
 			});
 			calculator.subscribe('basic', function(){
-				$("#txtBasic").val(calculator.get('basic'));
+				$("#txtBasic", $root).val(calculator.get('basic'));
 			});
 			calculator.subscribe('hra', function(){
-				$("#txtHra").val(calculator.get('hra'));
+				$("#txtHra", $root).val(calculator.get('hra'));
 			});
 			calculator.subscribe('da', function(){
-				$("#txtDa").val(calculator.get('da'));
+				$("#txtDa", $root).val(calculator.get('da'));
 			});
 			calculator.subscribe('tax', function(){
-				$("#rangeTax").val(calculator.get('tax'));
-				$("#spanTax").html(calculator.get('tax'));
+				$("#rangeTax", $root).val(calculator.get('tax'));
+				$("#spanTax", $root).html(calculator.get('tax'));
 			});
-		});
+
+			this.render = function(){
+				console.log(this.template);
+				$root.html(this.template);
+				return this;
+			}
+		}
+		
 
 	</script>
 </head>
 <body>
 	<h1>Salary Calculator</h1>
-	<hr class="content">
-		<div class="field"><label for="">Basic :</label><input type="text" name="" id="txtBasic"></div>
-		<div class="field"><label for="">HRA :</label><input type="text" name="" id="txtHra"></div>
-		<div class="field"><label for="">DA :</label><input type="text" name="" id="txtDa"></div>
-		<div class="field">
-			<label for="">Tax :</label>
-			<input type="range" name="" id="rangeTax" min="0" max="30" value="0">
-			<span id="spanTax">[Tax]</span>
-		</div>
-		<div class="field"><input type="button" value="Calculate" id="btnCalulate"></div>
-		<div class="field">
-			<div id="divResult">[Salary]</div>
-		</div>
-	</hr>
+
 </body>
 </html>
