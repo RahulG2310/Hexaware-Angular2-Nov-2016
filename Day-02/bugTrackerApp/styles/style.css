@@ -1,0 +1,28 @@
+section{
+			display: block;
+			margin-bottom: 10px;
+		}
+		.stats, .bugname{
+			font-size: 20pt;
+		}
+		ol{
+			list-style: none;
+			width : 500px;
+		}
+		.closed{
+			color : red;
+			text-decoration: line-through;
+		}
+		li{
+			border : 1px solid gray;
+			background-color: #e7e7e7;
+			padding: 5px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+		}
+		.bugname{
+			cursor: pointer;
+		}
+		.datetime{
+			font-style: italic;
+		}
