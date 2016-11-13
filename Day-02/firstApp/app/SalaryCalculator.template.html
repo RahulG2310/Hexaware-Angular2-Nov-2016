@@ -1,0 +1,18 @@
+<div class="content">
+    <hr>
+    <div class="field"><label for="">Basic :</label>
+        <input [(ngModel)]="calculator.basic" type="number" name="" id="txtBasic"></div>
+    <div class="field"><label for="">HRA :</label>
+    <input [(ngModel)]="calculator.hra" type="number" name="" id="txtHra"></div>
+    <div class="field"><label for="">DA :</label>
+    <input [(ngModel)]="calculator.da" type="number" name="" id="txtDa"></div>
+    <div class="field">
+        <label for="">Tax :</label>
+        <input type="range" [(ngModel)]="calculator.tax" id="rangeTax" min="0" max="30" value="0">
+        <span id="spanTax">{{calculator.tax}}</span>
+    </div>
+    <div class="field"><input type="button" value="Calculate" id="btnCalulate" (click)="calculator.calculate()"></div>
+    <div class="field">
+        <div id="divResult">{{calculator.salary | currency:'INR'}}</div>
+    </div>
+</div>
