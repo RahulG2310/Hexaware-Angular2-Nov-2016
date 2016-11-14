@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {UtilsModule} from './utils/utils.module';
 
 import {BrowserModule} from '@angular/platform-browser';
 import {MyAppComponent} from './app.component';
@@ -12,13 +13,13 @@ import {TrimTextPipe} from './pipes/TrimTextPipe';
 import {BugStorage} from './services/BugStorage';
 import {BugOperations} from './services/BugOperations';
 import {FilterPipe} from './pipes/FilterPipe';
-import {SortPipe} from './pipes/SortPipe';
+
 
 @NgModule({
-    imports : [BrowserModule, FormsModule],
+    imports : [BrowserModule, FormsModule, UtilsModule],
     bootstrap : [MyAppComponent],
     providers : [BugStorage, BugOperations],
-    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe, FilterPipe, SortPipe]
+    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe, FilterPipe]
 })
 export class MyAppModule{
 
