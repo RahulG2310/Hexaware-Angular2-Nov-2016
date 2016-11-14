@@ -1,17 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Bug} from './Bug';
+import {BugStorage} from './services/BugStorage';
 
 @Component({
     templateUrl : 'app/bug-tracker.template.html',
     selector : 'bug-tracker'
 })
-export class BugTracker{
+export class BugTracker implements OnInit{
     bugs : Array<Bug> = [
-        {id : 1, name : 'Bug - 1', isClosed:false, createdAt : new Date("10-Nov-2016")},
-        {id : 2, name : 'Bug - 2', isClosed:true, createdAt : new Date("13-Nov-2016")},
+        
     ];
+    bugStorage : BugStorage;
 
-    AddNew(newBug:Bug){
+    constructor(bugStorage : BugStorage){
+        this.bugStorage = bugStorage;
+    }
+
+    ngOnInit(){
+        this.bugs = this.bugStorage.getAll();
+    }
+    AddNew(newBugName:string){
+        var newBug = this.bugStorage.addNew(newBugName);
         this.bugs.push(newBug);
     }
 

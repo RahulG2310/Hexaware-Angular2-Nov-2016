@@ -12,6 +12,8 @@ export class MyDatePipe implements PipeTransform{
     transform(data : any ):any{
     
         var currentDate = new Date();
+        if (typeof data === 'string')
+            data = new Date(data);
         console.log(currentDate.toDateString(), data.toDateString());
         let displayOnlyTime:boolean = currentDate.toDateString() === data.toDateString(); 
         let displayFormat = displayOnlyTime ? 'hh:mm:ss' : 'dd-MMM-yyyy hh:mm:ss';

@@ -11,16 +11,11 @@ import {Bug} from './Bug';
 })
 export class NewBug{
 	@Output()
-	onNewBug : EventEmitter<Bug> = new EventEmitter<Bug>();
+	onNewBug : EventEmitter<string> = new EventEmitter<string>();
 
     AddNew(txtBug){
-		let newBug:Bug = {
-            id : 0,
-            name : txtBug.value,
-            isClosed : false,
-            createdAt : new Date()
-        };
-		this.onNewBug.emit(newBug);
+		
+		this.onNewBug.emit(txtBug.value);
 
 	}
 }

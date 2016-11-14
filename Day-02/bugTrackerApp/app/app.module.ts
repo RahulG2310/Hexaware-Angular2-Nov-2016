@@ -8,11 +8,14 @@ import {BugItem} from './Bug.component';
 import {BugStats} from './BugStat.component'
 import {NewBug} from './NewBug.component';
 import {MyDatePipe} from './pipes/MyDatePipe';
+import {TrimTextPipe} from './pipes/TrimTextPipe';
+import {BugStorage} from './services/BugStorage';
 
 @NgModule({
     imports : [BrowserModule, FormsModule],
     bootstrap : [MyAppComponent],
-    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe]
+    providers : [BugStorage],
+    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe]
 })
 export class MyAppModule{
 
