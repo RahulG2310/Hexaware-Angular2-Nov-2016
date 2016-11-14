@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Bug} from './Bug';
 
 @Component({
@@ -11,7 +11,10 @@ export class BugItem{
     @Input() 
     data : Bug;
 
+    @Output()
+    toggleBugEvent : EventEmitter<Bug> = new EventEmitter<Bug>();
+
     toggle(){
-        this.data.isClosed = !this.data.isClosed;
+        this.toggleBugEvent.emit(this.data);
     }
 }

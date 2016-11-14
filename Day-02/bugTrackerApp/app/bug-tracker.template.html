@@ -15,7 +15,7 @@
 		<section class="list">
 			<ol>
 				<li *ngFor="let bug of bugs">
-					<bug-item [data]="bug"></bug-item>
+					<bug-item (toggleBugEvent)="onToggle($event)" [data]="bug"></bug-item>
 				</li>
 				
 			</ol>

@@ -1,9 +1,16 @@
 import {Injectable} from '@angular/core';
+import {BugOperations} from './BugOperations';
 
 @Injectable()
 export class BugStorage{
     currentId  : number = 0;
 
+    bugOperations:BugOperations = null;
+    
+    constructor(bugOperations : BugOperations){
+        this.bugOperations = bugOperations;
+    }
+    
     getAll(){
         let list = [];
         for(let i =0; i < window.localStorage.length; i++){
@@ -16,17 +23,12 @@ export class BugStorage{
         return list;
     }
     addNew(bugName){
-        var newBug = {
-            id : ++this.currentId,
-            name : bugName,
-            isClosed : false,
-            createdAt : new Date()
-        }
+        var newBug = this.bugOperations.createNew(++this.currentId, bugName);
         window.localStorage.setItem(newBug.id.toString(), JSON.stringify(newBug));
         return newBug;
     }
     toggle(bug){
-        bug.isClosed = !bug.isClosed;
+        this.bugOperations.toggle(bug);
         window.localStorage.setItem(bug.id.toString(), JSON.stringify(bug));
     }
     remove(bug){

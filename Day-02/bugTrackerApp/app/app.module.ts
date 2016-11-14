@@ -10,11 +10,12 @@ import {NewBug} from './NewBug.component';
 import {MyDatePipe} from './pipes/MyDatePipe';
 import {TrimTextPipe} from './pipes/TrimTextPipe';
 import {BugStorage} from './services/BugStorage';
+import {BugOperations} from './services/BugOperations';
 
 @NgModule({
     imports : [BrowserModule, FormsModule],
     bootstrap : [MyAppComponent],
-    providers : [BugStorage],
+    providers : [BugStorage, BugOperations],
     declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe]
 })
 export class MyAppModule{

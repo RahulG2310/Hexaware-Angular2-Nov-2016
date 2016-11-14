@@ -24,6 +24,9 @@ export class BugTracker implements OnInit{
         this.bugs.push(newBug);
     }
 
+    onToggle(bug:Bug){
+        this.bugStorage.toggle(bug);
+    }
     
     
 }
