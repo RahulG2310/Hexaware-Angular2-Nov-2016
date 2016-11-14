@@ -1,20 +1,22 @@
 <div class="content">
 		<bug-stats [data]="bugs"></bug-stats>
-		<section class="search"><label for="">Search :</label><input type="text" name="" id=""></section>
+		<section class="search">
+			<label for="">Search :</label>
+			<input type="text" [(ngModel)]="searchBug"></section>
 		<section class="sort">
 			<label for="">Order By :</label>
-			<select >
-				<option value="">Name</option>
-				<option value="">Status</option>
-				<option value="">Created</option>
+			<select [(ngModel)]="bugSort">
+				<option value="name">Name</option>
+				<option value="isClosed">Status</option>
+				<option value="createdAt">Created</option>
 			</select>
 			<label for="">Descending :</label>
-			<input type="checkbox" name="" id="">
+			<input type="checkbox" [(ngModel)]="bugSortOrder">
 		</section>
 		<new-bug (onNewBug)="AddNew($event)"></new-bug>
 		<section class="list">
 			<ol>
-				<li *ngFor="let bug of bugs">
+				<li *ngFor="let bug of (bugs | filter:searchBug | sort:bugSort:bugSortOrder)">
 					<bug-item (toggleBugEvent)="onToggle($event)" [data]="bug"></bug-item>
 				</li>
 				

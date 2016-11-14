@@ -11,12 +11,14 @@ import {MyDatePipe} from './pipes/MyDatePipe';
 import {TrimTextPipe} from './pipes/TrimTextPipe';
 import {BugStorage} from './services/BugStorage';
 import {BugOperations} from './services/BugOperations';
+import {FilterPipe} from './pipes/FilterPipe';
+import {SortPipe} from './pipes/SortPipe';
 
 @NgModule({
     imports : [BrowserModule, FormsModule],
     bootstrap : [MyAppComponent],
     providers : [BugStorage, BugOperations],
-    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe]
+    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe, TrimTextPipe, FilterPipe, SortPipe]
 })
 export class MyAppModule{
 
