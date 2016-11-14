@@ -4,7 +4,7 @@ import {Bug} from './Bug';
 @Component({
     selector : 'bug-item',
     template : `<span class="bugname" [ngClass]="{closed : data.isClosed}" (click)="toggle()">{{data.name}}</span>
-					<div class="datetime">{{data.createdAt}}</div>`
+					<div class="datetime">{{data.createdAt | myDate}}</div>`
 })
 export class BugItem{
     

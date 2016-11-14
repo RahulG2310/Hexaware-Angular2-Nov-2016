@@ -7,11 +7,12 @@ import {BugTracker} from './bug-tracker.component';
 import {BugItem} from './Bug.component';
 import {BugStats} from './BugStat.component'
 import {NewBug} from './NewBug.component';
+import {MyDatePipe} from './pipes/MyDatePipe';
 
 @NgModule({
     imports : [BrowserModule, FormsModule],
     bootstrap : [MyAppComponent],
-    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug]
+    declarations : [MyAppComponent, BugTracker, BugItem, BugStats, NewBug, MyDatePipe]
 })
 export class MyAppModule{
 
